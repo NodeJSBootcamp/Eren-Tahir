@@ -19,7 +19,7 @@ const TweetSchema = new Schema(
             required: true
         },
         likedBy:[{userName:{type:String}}],
-        subTweets:[ this ],
+        parentTweetID: {type:"UUID"} ,
         postDate:{
             type:Date,
             default:Date.now()

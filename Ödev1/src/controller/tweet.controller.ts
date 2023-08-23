@@ -140,20 +140,16 @@ export const tweetTweet = async (req:Request,res:Response,next:NextFunction)=>{
         const verifyTokenResult = verifyToken(jwtToken)
         const userName=verifyTokenResult.username;
         const content= req.body.content;
-        const tweetId = req.body.id as UUID;
-        const tweet= await TweetModel.create({userName:userName,content:content });
-        
-        TweetModel.findOne({id:tweetId ,isDeleted:false})
-            .then((result)=>{
-                if (result?.userName==userName){
-                    throw Error;//user cant tweet his own tweets
-                }
-                TweetModel.updateOne({id:tweetId ,isDeleted:false},{ $push: { subTweets: tweet }})
-                    .then((result)=> {res.sendStatus(200);})
-            })
-            .catch((error)=>{
-                console.error(error);
-                res.sendStatus(403)});
+        const parentTweetId = req.body.id as UUID;
+        TweetModel.create({userName:userName,content:content,parentTweetID:parentTweetId }).then((result)=>{
+            if(result){
+                res.sendStatus(200)
+            }
+        })
+        .catch((exception)=>{
+            console.error(exception);
+            res.sendStatus(500)
+        })
     }
     catch(error){
         console.error(error);
