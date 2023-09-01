@@ -20,6 +20,4 @@ app.use("/user",userRouter)
 app.use("/tweet",tweetRouter)
 app.use("/chat",chatRouter)
 
-createSocketConnection(io)
-
 export default server
