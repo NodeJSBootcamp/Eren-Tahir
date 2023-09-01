@@ -1,7 +1,4 @@
 import express from "express"
-import userRouter from "./router/user.router"
-import tweetRouter from "./router/tweet.router"
-import chatRouter from "./router/chat.router"
 import http from 'http';
 import socketIo from 'socket.io';
 import { createSocketConnection } from "./chat/chat";
@@ -14,6 +11,10 @@ const io = new socketIo.Server(server);
 //keep socket namespaces in a global map data structure as (endpoint,socketNamespace pairs)
 var socketMap= new Map<string, socketIo.Namespace>();
 export { socketMap, io }; 
+
+import userRouter from "./router/user.router"
+import tweetRouter from "./router/tweet.router"
+import chatRouter from "./router/chat.router"
 
 app.use("/user",userRouter)
 app.use("/tweet",tweetRouter)
