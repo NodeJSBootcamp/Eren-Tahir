@@ -1,7 +1,6 @@
 import express from "express"
 import http from 'http';
 import socketIo from 'socket.io';
-import { createSocketConnection } from "./chat/chat";
 
 const app = express()
 app.use(express.json())
