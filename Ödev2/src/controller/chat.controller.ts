@@ -41,6 +41,7 @@ export const addUser = (req:Request, res:Response, next:NextFunction) =>{
             .then((response)=>{
                 if(response?.admin===clientUserName){
                     response.users.push(userID);
+                    response.save();
                     res.sendStatus(200)
                 }else{
                     res.sendStatus(500)
@@ -68,6 +69,7 @@ export const leaveGroup = (req:Request, res:Response, next:NextFunction) =>{
                         .then((response)=>{
                             if(response?.admin===userName){
                                 response.users=response.users.filter(id => id != userID);
+                                response.save();
                                 res.sendStatus(200)
                             }else{
                                 res.sendStatus(500)
